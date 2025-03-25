@@ -5,13 +5,13 @@ class EstudanteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estudante
         fields = [
-            'id',
             'nome',
             'email',
             'cpf',
             'data_nascimento',
             'telefone',
-            'cep',    
+            'cep',
+            'curso',    
         ]
 
 
