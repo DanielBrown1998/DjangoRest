@@ -13,8 +13,6 @@ class Estudante(models.Model):
     telefone = models.CharField(max_length=15, blank=False)
     cep = models.CharField(max_length=10, blank=False)
     observacoes = models.TextField(blank=True, null=True)
-    matricula = models.CharField(max_length=20, unique=True, blank=False)
-    curso = models.ForeignKey('Curso', on_delete=models.DO_NOTHING, blank=False, null=False)
 
     def __str__(self):
         return self.nome
@@ -35,4 +33,21 @@ class Curso(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Matricula(models.Model):
+    curso = models.ForeignKey("Curso", verbose_name=("Curso"), on_delete=models.DO_NOTHING)
+    aluno = models.ForeignKey("Estudante", verbose_name="Estudante", on_delete=models.DO_NOTHING)
+    matricula = models.CharField(max_length=12, blank=False, null=False)
+    periodo = models.CharField(
+        choices = [
+            ("M", "Matutino"),
+            ("V", "Vespertino"),
+            ("N", "Noturno"),
+            ("I", "Integral"),
+        ],
+        max_length= 1,
+        blank=False, 
+        null=False, 
+        default='M'
+    )
     
