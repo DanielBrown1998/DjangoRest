@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 
 
 class Estudante(models.Model):
@@ -18,7 +19,7 @@ class Estudante(models.Model):
         return self.nome
     
 class Curso(models.Model):
-    nome = models.CharField(max_length=100, blank=False)
+    nome = models.CharField(max_length=10, blank=False, validators=[MinLengthValidator(3)], unique=True)
     descricao = models.TextField(blank=False)
     data_inicio = models.DateField(auto_now_add=True)
     data_fim = models.DateField(blank=False)
