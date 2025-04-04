@@ -14,7 +14,7 @@ class EstudanteAdmin(admin.ModelAdmin):
     list_filter = ('ativo', 'data_nascimento')
     list_editable = ('ativo',)
     list_per_page = 10
-    ordering = ('data_cadastro',)
+    ordering = ('data_cadastro', 'nome')
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):

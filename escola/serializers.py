@@ -19,7 +19,7 @@ class EstudanteSerializer(serializers.ModelSerializer):
     def validate(self, dados):
         if validators.cpf_invalido(dados['cpf']):
             raise serializers.ValidationError(
-                {"cpf": "O cpf deve possuir 11 digitos"}
+                {"cpf": "CPF invalido!"}
                 )
         if validators.nome_invalido(dados['nome']):
             raise serializers.ValidationError(
