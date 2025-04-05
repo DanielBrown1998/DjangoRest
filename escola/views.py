@@ -35,6 +35,13 @@ class MatriculaViewSet(viewsets.ModelViewSet):
 
 class ListMatriculaEstudante(generics.ListAPIView):
 
+    """
+    descricao da view:
+    - Listar as matriculas por id de um estudante
+    Parametros:
+    - pk (int): identifficador primario do objeto. Deve ser um numero inteiro
+    """
+
     serializer_class = ListMatriculaEstudanteSerializer
 
     def get_queryset(self):
@@ -42,6 +49,14 @@ class ListMatriculaEstudante(generics.ListAPIView):
         return queryset
     
 class ListMatriculasCurso(generics.ListAPIView):
+
+    """
+    Descricao da View:
+    - Listar matriculas por id de um curso
+    Parametros:
+    - pk (int): identifficador primario do objeto. Deve ser um numero inteiro
+    """
+
     serializer_class = ListMatriculaCursoSerializer
 
     def get_queryset(self):
