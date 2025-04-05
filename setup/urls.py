@@ -17,3 +17,5 @@ urlpatterns = [
     path("cursos/<int:pk>/matricula/", ListMatriculasCurso.as_view()),
 
 ]
+
+

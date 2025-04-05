@@ -2,6 +2,28 @@ from rest_framework import serializers
 from escola.models import Estudante, Curso, Matricula
 from escola import validators
 
+class EstudanteSerializerV2(serializers.ModelSerializer):
+    class Meta:
+        model = Estudante
+        fields = [
+            'nome',
+            'email',
+            'cpf',
+        ]
+
+    def validate(self, dados):
+        if validators.cpf_invalido(dados['cpf']):
+            raise serializers.ValidationError(
+                {"cpf": "CPF invalido!"}
+                )
+        if validators.nome_invalido(dados['nome']):
+            raise serializers.ValidationError(
+                {"nome": "Nome so pode conter letras"}
+                )
+        return dados
+
+
+
 class EstudanteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estudante
