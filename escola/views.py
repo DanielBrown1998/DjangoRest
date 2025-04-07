@@ -9,6 +9,26 @@ from django_filters.rest_framework import DjangoFilterBackend
 1
 class EstudanteViewSet(viewsets.ModelViewSet):
 
+    """
+    Descricao:
+     - Endpoint para CRUD Estudantes 
+
+    Campos de ordenacao:
+     - nome: permite ordenar os resultados por nome.
+
+    Campos de busca:
+    - nome: permite que a busca seja por nome.
+    - cpf: permite que a busca seja por CPF.
+
+    Metodfos HTTP:
+    - POST, GET, PATCH, PUT, DELETE
+
+    Classes Serializer:
+    - EstudanteSerializer: usado para serializacao e desserializacao de dados.
+    - Se a versao da APi for 'v2', usa-se EstudanteSerializerV2.
+    """
+
+
     queryset = Estudante.objects.all().order_by("id")
     #serializer_class = EstudanteSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
@@ -22,12 +42,37 @@ class EstudanteViewSet(viewsets.ModelViewSet):
 
 
 class CursoViewSet(viewsets.ModelViewSet):
+
+    """
+    Descricao:
+    - Endpoint para CRUD de cursos
+
+    Metodos HTTP permitidos:
+    - post, get, put, delete, patch  
+
+    """
+
     queryset = Curso.objects.all().order_by("id")
     # queryset = Curso.objects.filter(ativo=True)
     serializer_class = CursoSerializer
 
 
 class MatriculaViewSet(viewsets.ModelViewSet):
+
+    """
+    Descricao:
+    - Endpoint para CRUD de matriculas
+
+    Metodos HTTP permitidos:
+    - post, get
+    
+    Throttle Classes:
+    - MatriculaAnonRateThrottle: limite de taxa para usuarios anonimos.
+    - UserRateThrottle: limite de taxa para usuarios autenticados
+
+    """
+
+
     throttle_classes = [UserRateThrottle, MatriculaThrottle]
     queryset = Matricula.objects.all().order_by("id")
     serializer_class = MatriculaSerializer
