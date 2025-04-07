@@ -6,7 +6,8 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from escola.throttles import MatriculaThrottle
 from rest_framework import viewsets, generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
-1
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 class EstudanteViewSet(viewsets.ModelViewSet):
 
     """
@@ -55,7 +56,7 @@ class CursoViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all().order_by("id")
     # queryset = Curso.objects.filter(ativo=True)
     serializer_class = CursoSerializer
-
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class MatriculaViewSet(viewsets.ModelViewSet):
 
