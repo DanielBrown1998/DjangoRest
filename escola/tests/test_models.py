@@ -27,4 +27,3 @@ class ModelEstudanteTestCase(TestCase):
         self.assertEqual(self.estudante.telefone, '21976788321')
         self.assertEqual(self.estudante.data_nascimento, '1998-02-03')
 
-
