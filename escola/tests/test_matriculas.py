@@ -6,6 +6,7 @@ from rest_framework import status
 from escola.models import Estudante
 from escola.models import Matricula
 from escola.models import Curso
+from escola.serializers import MatriculaSerializer
 
 
 
@@ -88,3 +89,24 @@ class MatriculasTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
 
+    def test_requisition_get_a_matricula(self):
+        """Test requisition get a matricula with id 1"""
+        response = self.client.get(f"{self.url}1/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        dados_matricula = Matricula.objects.get(id=1)
+        data_serializer = MatriculaSerializer(dados_matricula).data
+        self.assertEqual(response.data, data_serializer)
+
+    def test_requisition_post_for_create_matricula(self):
+        """Test requisition post for create a matricula"""
+        
+        data = {
+            "aluno": 1,
+            "curso": 2,
+            "matricula": "202301010005",
+            "periodo": "M",
+        }
+        response = self.client.post(self.url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Matricula.objects.count(), 5)
+        self.assertEqual(MatriculaSerializer(Matricula.objects.get(id=5)).data, response.data)
